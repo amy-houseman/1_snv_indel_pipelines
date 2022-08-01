@@ -26,7 +26,7 @@ SORTEDBAM=/scratch/c.c21087028/Polyposis_Exome_Analysis_JOB27/samtools/sort/{}PE
 QUALIMAPBAMQCOUTPUTDIR=/scratch/c.c21087028/Polyposis_Exome_Analysis_JOB27/qualimap/GCA_000001405.15_GRCh38_no_alt_analysis_set_qualimap_{}
 QUALIMAPBAMQCOUTPUTFILE={}
 BEDFILEGFF=/scratch/c.c21087028/Polyposis_Exome_Analysis_JOB27/deepvariant/bed/JOB27_original_bed/Agilent-SureSelect-DNA-SureSelectXT-Human-All-Exon-V5-hg38.bed
-MAKEDIRECTORYIDS=/scratch/c.c21087028/Polyposis_Exome_Analysis_JOB27/qualimap/{}
+MAKEDIRECTORYIDS=/scratch/c.c21087028/Polyposis_Exome_Analysis_JOB27/qualimap/output/qualimap_{}
 
 
 cd /scratch/c.c21087028/
