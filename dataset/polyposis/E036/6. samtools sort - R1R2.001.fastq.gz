@@ -25,7 +25,7 @@ CONTAINER=$MY_CONTAINER_PATH/$CONTAINER_FILE
 
 EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_E036/fastp/All_fastp_input/list_of_R1R2_001_fastq_gz_E036
 BWAMEM_BAM=/scratch/c.c21087028/Polyposis_Exome_Analysis_E036/samtools/view/{}PE_samtoolsview_GCA_000001405.15_GRCh38_no_alt_analysis_set.bam
-BWAMEM_SORTEDBAM=/scratch/c.c21087028/Polyposis_Exome_Analysis_E026/samtools/sort/{}PE_samtoolssorted_GCA_000001405.15_GRCh38_no_alt_analysis_set.bam
+BWAMEM_SORTEDBAM=/scratch/c.c21087028/Polyposis_Exome_Analysis_E036/samtools/sort/{}PE_samtoolssorted_GCA_000001405.15_GRCh38_no_alt_analysis_set.bam
 
 if [ "$SLURM_ARRAY_TASK_ID" == "1" ]
 then
