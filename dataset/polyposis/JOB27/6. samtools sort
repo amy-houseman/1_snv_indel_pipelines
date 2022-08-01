@@ -24,9 +24,10 @@ MY_CONTAINER_PATH=/scratch/$USER/containers
 CONTAINER=$MY_CONTAINER_PATH/$CONTAINER_FILE
 
 EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_JOB27/fastp/All_fastp_input/IDswithoutR1R2_JOB27
-BWAMEM_BAM=/scratch/c.c21087028/Polyposis_Exome_Analysis_JOB27/samtools/view/{}PE_samtoolsview.bam
-BWAMEM_SORTEDBAM=Polyposis_Exome_Analysis_JOB27/samtools/sort/{}PE_samtoolssorted.bam
-/scratch/c.c21087028/Polyposis_Exome_Analysis_JOB27/sam" ]
+BWAMEM_BAM=/scratch/c.c21087028/Polyposis_Exome_Analysis_JOB27/samtools/view/{}PE_samtoolsview_GCA_000001405.15_GRCh38_no_alt_analysis_set.bam
+BWAMEM_SORTEDBAM=/scratch/c.c21087028/Polyposis_Exome_Analysis_JOB27/samtools/sort/{}PE_samtoolssorted_GCA_000001405.15_GRCh38_no_alt_analysis_set.bam
+
+if [ "$SLURM_ARRAY_TASK_ID" == "1" ]
 then
   mkdir -p $MY_CONTAINER_PATH
   [ -f "$CONTAINER" ] || ssh cl1 wget -O $CONTAINER https://wotan.cardiff.ac.uk/containers/$CONTAINER_FILE
