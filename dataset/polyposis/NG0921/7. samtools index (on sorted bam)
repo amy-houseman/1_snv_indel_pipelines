@@ -24,7 +24,7 @@ CONTAINER_FILE=samtools-1.9.sif
 MY_CONTAINER_PATH=/scratch/$USER/containers
 CONTAINER=$MY_CONTAINER_PATH/$CONTAINER_FILE
 
-EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/fastp/All_fastp_input/IDswithoutR1R2_E132
+EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/fastp/All_fastp_input/NG0921_sampleIDs
 SAMTOOLSSORTEDBAM=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/samtools/sort/{}PE_samtoolssorted_GCA_000001405.15_GRCh38_no_alt_analysis_set.bam
 SAMTOOLSINDEXBAI=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/samtools/sort/{}PE_samtoolssorted_GCA_000001405.15_GRCh38_no_alt_analysis_set.bam.bai
 SAMTOOLSINDEXONSORTEDOUTPUTFOLDER=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/samtools/index/indexed_samtoolssortedfiles/
