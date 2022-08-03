@@ -16,9 +16,9 @@ module purge
 module load parallel
 module load singularity
 
-EXOME_IDs_FILE=scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/fastp/All_fastp_input/NG0921_sampleIDs
-HG38_REFERENCE=scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/bwa/index/GCA_000001405.15_GRCh38_no_alt_analysis_set_refandindex/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna
-PICARDMARKDUPLICATES_SORTEDBAM=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/picard/markduplicate/markedduplicates/{}PE_markedduplicates_GCA_000001405.15_GRCh38_no_alt_analysis_set.bam
+EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/fastp/All_fastp_input/NG0921_sampleIDs
+HG38_REFERENCE=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/bwa/index/GCA_000001405.15_GRCh38_no_alt_analysis_set_refandindex/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna
+PICARDMARKDUPLICATES_SORTEDBAM=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/picard/markduplicates/markedduplicates/{}PE_markedduplicates_GCA_000001405.15_GRCh38_no_alt_analysis_set.bam
 BED_REGIONS=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/deepvariant/bed/Agilent-SureSelect-XT-Reagent-Kit-Human-AllExon-V6-hg38.bed
 OUTPUT_VCF=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/deepvariant/vcf/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set.vcf.gz
 OUTPUT_GVCF=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/deepvariant/gvcf/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set.g.vcf.gz
