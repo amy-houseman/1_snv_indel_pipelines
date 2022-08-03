@@ -27,7 +27,7 @@ CONTAINER=$MY_CONTAINER_PATH/$CONTAINER_FILE
 EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/fastp/All_fastp_input/NG0921_sampleIDs
 SAMTOOLSSORTEDBAM=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/samtools/sort/{}PE_samtoolssorted_GCA_000001405.15_GRCh38_no_alt_analysis_set.bam
 SAMTOOLSINDEXBAI=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/samtools/sort/{}PE_samtoolssorted_GCA_000001405.15_GRCh38_no_alt_analysis_set.bam.bai
-SAMTOOLSINDEXONSORTEDOUTPUTFOLDER=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/samtools/index/indexed_samtoolssortedfiles/
+
 
 if [ "$SLURM_ARRAY_TASK_ID" == "1" ]
 then
@@ -44,4 +44,4 @@ done
 cd /scratch/c.c21087028/
 
 #samtools index on PE reads
-sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "singularity run $CONTAINER index $SAMTOOLSSORTEDBAM && mv $SAMTOOLSINDEXBAI $SAMTOOLSINDEXONSORTEDOUTPUTFOLDER"
+sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "singularity run $CONTAINER index $SAMTOOLSSORTEDBAM"
