@@ -34,7 +34,7 @@ EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/fastp/All_fa
 SORTEDBAM=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/samtools/sort/{}PE_samtoolssorted_GCA_000001405.15_GRCh38_no_alt_analysis_set.bam
 QUALIMAPBAMQCOUTPUTDIR=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/qualimap/output/qualimap_{}
 QUALIMAPBAMQCOUTPUTFILE={}
-BEDFILEGFF=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/deepvariant/bed/Agilent-SureSelect-XT-Reagent-Kit-Human-AllExon-V6-hg38-qualimap.bed
+BEDFILEGFF=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/qualimap/bed/Agilent-SureSelect-XT-Reagent-Kit-Human-AllExon-V6-hg38-qualimap.bed
 MAKEDIRECTORYIDS=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/qualimap/output/qualimap_{}
 
 
