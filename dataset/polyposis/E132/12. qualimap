@@ -33,7 +33,7 @@ EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_E132/fastp/All_fast
 SORTEDBAM=/scratch/c.c21087028/Polyposis_Exome_Analysis_E132/samtools/sort/{}PE_samtoolssorted_GCA_000001405.15_GRCh38_no_alt_analysis_set.bam
 QUALIMAPBAMQCOUTPUTDIR=/scratch/c.c21087028/Polyposis_Exome_Analysis_E132/qualimap{}
 QUALIMAPBAMQCOUTPUTFILE={}
-BEDFILEGFF=/scratch/c.c21087028/Polyposis_Exome_Analysis_E132/deepvariant/bed/E132_original_bed/truseq-dna-exome-v1-2-hg38.bed
+BEDFILEGFF=/scratch/c.c21087028/Polyposis_Exome_Analysis_E132/qualimap/bed/E132_original_bed/truseq-dna-exome-v1-2-hg38.bed
 MAKEDIRECTORYIDS=/scratch/c.c21087028/Polyposis_Exome_Analysis_E132/qualimap/output/qualimap_{}
 
 
