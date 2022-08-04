@@ -1,3 +1,10 @@
+module load R/4.2.0
+R
+bed <- read.table("Agilent-SureSelect-DNA-SureSelectXT-Human-All-Exon-V5-hg38.bed",header= FALSE, sep="\t",stringsAsFactors=FALSE,quote="")
+bed$V6 <- "."
+write.table(bed, file = "Agilent-SureSelect-DNA-SureSelectXT-Human-All-Exon-V5-hg38-qualimap.bed", sep = "\t", row.names = FALSE, quote = FALSE, col.names = FALSE)
+rm Agilent-SureSelect-DNA-SureSelectXT-Human-All-Exon-V5-hg38.bed
+
 #!/bin/bash --login
 #SBATCH -J AmyHouseman_qualimap
 #SBATCH -o %x.stdout.%J.%N
@@ -25,9 +32,8 @@ EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_JOB27/fastp/All_fas
 SORTEDBAM=/scratch/c.c21087028/Polyposis_Exome_Analysis_JOB27/samtools/sort/{}PE_samtoolssorted_GCA_000001405.15_GRCh38_no_alt_analysis_set.bam
 QUALIMAPBAMQCOUTPUTDIR=/scratch/c.c21087028/Polyposis_Exome_Analysis_JOB27/qualimap/GCA_000001405.15_GRCh38_no_alt_analysis_set_qualimap_{}
 QUALIMAPBAMQCOUTPUTFILE={}
-BEDFILEGFF=/scratch/c.c21087028/Polyposis_Exome_Analysis_JOB27/deepvariant/bed/JOB27_original_bed/Agilent-SureSelect-DNA-SureSelectXT-Human-All-Exon-V5-hg38.bed
+BEDFILEGFF=/scratch/c.c21087028/Polyposis_Exome_Analysis_JOB27/qualimap/bed/Agilent-SureSelect-DNA-SureSelectXT-Human-All-Exon-V5-hg38-qualimap.bed
 MAKEDIRECTORYIDS=/scratch/c.c21087028/Polyposis_Exome_Analysis_JOB27/qualimap/output/qualimap_{}
-
 
 cd /scratch/c.c21087028/
 
