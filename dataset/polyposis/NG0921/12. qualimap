@@ -1,11 +1,11 @@
 
-In base R:
- bed <- read.table("bed.bed",header= FALSE, sep="\t",stringsAsFactors=FALSE,quote="")
-bed$V4 <- 0 #V4 = column number
-bed$V5 <- 0 
+module load R/4.2.0
+bed <- bed <- read.table("Agilent-SureSelect-XT-Reagent-Kit-Human-AllExon-V6-hg38.bed",head> bed$V4 <- 0
+bed$V5 <- 0
 bed$V6 <- "."
 
-write.table(bed, file = "bed.bed", sep = "\t", row.names = FALSE, quote = FALSE, col.names = FALSE)
+write.table(bed, file = "Agilent-SureSelect-XT-Reagent-Kit-Human-AllExon-V6-hg38-qualimap.bed", sep = "\t", row.names = FALSE, quote = FALSE, col.names = FALSE)
+rm Agilent-SureSelect-XT-Reagent-Kit-Human-AllExon-V6-hg38.bed
 
 #!/bin/bash --login
 #SBATCH -J AmyHouseman_qualimap
@@ -34,7 +34,7 @@ EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/fastp/All_fa
 SORTEDBAM=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/samtools/sort/{}PE_samtoolssorted_GCA_000001405.15_GRCh38_no_alt_analysis_set.bam
 QUALIMAPBAMQCOUTPUTDIR=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/qualimap/output/qualimap_{}
 QUALIMAPBAMQCOUTPUTFILE={}
-BEDFILEGFF=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/deepvariant/bed/Agilent-SureSelect-XT-Reagent-Kit-Human-AllExon-V6-hg38.bed
+BEDFILEGFF=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/deepvariant/bed/Agilent-SureSelect-XT-Reagent-Kit-Human-AllExon-V6-hg38-qualimap.bed
 MAKEDIRECTORYIDS=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/qualimap/output/qualimap_{}
 
 
