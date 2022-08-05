@@ -1,5 +1,5 @@
 #!/bin/bash --login
-#SBATCH -J AmyHouseman_bwamemE132
+#SBATCH -J AmyHouseman_bwamem
 #SBATCH -o %x.stdout.%J.%N
 #SBATCH -e %x.stderr.%J.%N
 #SBATCH --ntasks=1
