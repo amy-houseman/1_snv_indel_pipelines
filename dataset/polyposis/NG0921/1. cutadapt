@@ -23,7 +23,7 @@ CONTAINER_FILE=trim_galore-0.6.6.sif
 MY_CONTAINER_PATH=/scratch/$USER/containers
 CONTAINER=$MY_CONTAINER_PATH/$CONTAINER_FILE
 
-EXOMEIDS=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/fastp/All_fastp_input/NG0921_sampleIDs
+EXOMEIDS=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/RAW_input/NG0921_sampleIDs
 INPUTFASTQFORWARD=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/fastp/All_fastp_input/RawPEreads/{}1.fq.gz
 INPUTFASTQREVERSE=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/fastp/All_fastp_input/RawPEreads/{}2.fq.gz
 FORWARDADAPTER=AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT
