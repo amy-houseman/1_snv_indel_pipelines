@@ -7,7 +7,7 @@
 #SBATCH --account=scw1581
 #SBATCH --mail-type=ALL          # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=HousemanA@cardiff.ac.uk     # Where to send mail
-#SBATCH --array=1-33
+#SBATCH --array=1-23
 #SBATCH --time=12:00:00
 #SBATCH --qos=maxjobs100
 #SBATCH --partition=htc
