@@ -35,7 +35,7 @@ OUTPUTFASTQREVERSE=/scratch/c.c21087028/Polyposis_Exome_Analysis_JOB27/cutadapt/
 TOOSHORTFORWARD=/scratch/c.c21087028/Polyposis_Exome_Analysis_JOB27/cutadapt/tooshort/{}1.cutadapt-tooshort.fq.gz
 TOOSHORTREVERSE=/scratch/c.c21087028/Polyposis_Exome_Analysis_JOB27/cutadapt/tooshort/{}2.cutadapt-tooshort.fq.gz
 
-TXTREPORT=//scratch/c.c21087028/Polyposis_Exome_Analysis_JOB27/cutadapt/TrimmedPEreads/{}cutadapt.txt
+TXTREPORT=/scratch/c.c21087028/Polyposis_Exome_Analysis_JOB27/cutadapt/TrimmedPEreads/{}cutadapt.txt
 
 if [ "$SLURM_ARRAY_TASK_ID" == "1" ]
 then
