@@ -1,7 +1,0 @@
-
-#In login node
-
-cd /scratch/c.c21087028/
-
-module load singularity
-singularity pull docker://google/deepvariant:"1.3.0"
