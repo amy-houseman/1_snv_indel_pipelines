@@ -21,11 +21,7 @@ perl INSTALL.pl -a cfp -s homo_sapiens -y GRCh38 -g all
 INPUTVCF=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/deepvariant/vcf/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set.vcf.gz
 OUTPUTVCF=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/deepvariant/vcf/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_annotatedVEP.vcf.gz
 HG38REFERENCE=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/bwa/index/GCA_000001405.15_GRCh38_no_alt_analysis_set_refandindex/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna
-CADDPLUGIN_SNV=
-CADDPLUGIN_INDEL=
-POLYPHEN2PLUGIN=
 GNOMADPLUGIN=
-REVELPLUGIN=
 
 module load singularity
 
@@ -44,4 +40,6 @@ singularity exec /scratch/c.c21087028/ensembl-vep_latest.sif vep --input_file $I
 --force \
 --no_stats \
 --everything \
---plugin CADD,/scratch/c.mcgmm1/CADD/GRCh38/whole_genome_GRCh38_SNVs.tsv.gz,/scratch/c.mcgmm1/CADD/GRCh38/gnomad.genomes.r3.0.indel.tsv.gz
+--plugin CADD,/scratch/c.c21087028/ENSEMBL-VEP-PLUGGINS/ENSEMBL-CADD/whole_genome_GRCh38_SNVs.tsv.gz,/scratch/c.c21087028/ENSEMBL-VEP-PLUGGINS/ENSEMBL-CADD/gnomad.genomes.r3.0.indel.tsv.gz \
+--plugin REVEL,/scratch/c.c21087028/ENSEMBL-VEP-PLUGGINS/ENSEMBL-REVEL \
+
