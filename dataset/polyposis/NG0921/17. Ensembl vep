@@ -21,7 +21,6 @@ perl INSTALL.pl -a cfp -s homo_sapiens -y GRCh38 -g all
 INPUTVCF=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/deepvariant/vcf/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set.vcf.gz
 OUTPUTVCF=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/deepvariant/vcf/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_annotatedVEP.vcf.gz
 HG38REFERENCE=/scratch/c.c21087028/Polyposis_Exome_Analysis_NG0921/bwa/index/GCA_000001405.15_GRCh38_no_alt_analysis_set_refandindex/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna
-GNOMADPLUGIN=
 
 module load singularity
 
