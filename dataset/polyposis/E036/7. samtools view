@@ -8,8 +8,8 @@
 #SBATCH --account=scw1581
 #SBATCH --mail-type=ALL          # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=HousemanA@cardiff.ac.uk     # Where to send mail
-#SBATCH --array=1-229
-#SBATCH --qos=maxjobs100
+#SBATCH --array=1-223
+#SBATCH --qos=maxjobs500
 
 
 module purge
@@ -24,7 +24,7 @@ CONTAINER_FILE=samtools-1.9.sif
 MY_CONTAINER_PATH=/scratch/$USER/containers
 CONTAINER=$MY_CONTAINER_PATH/$CONTAINER_FILE
 
-EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_E035/RAW_input/list_of_all_E036IDs
+EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_E036/RAW_input/list_of_all_E036IDs
 BWAMEM_SAM=/scratch/c.c21087028/Polyposis_Exome_Analysis_E036/bwa/mem/bwamemsam/{}PE_bwamem_GCA_000001405.15_GRCh38_no_alt_analysis_set.sam
 BWAMEM_BAM=/scratch/c.c21087028/Polyposis_Exome_Analysis_E036/samtools/view/{}PE_samtoolsview_GCA_000001405.15_GRCh38_no_alt_analysis_set.bam
 
