@@ -24,6 +24,7 @@ HG38REFERENCE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BEST
 EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/ensemblvep-input/alldataset_bestcov_IDS
 
 module load singularity
+module load parallel
 
 sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "singularity exec /scratch/c.c21087028/ensembl-vep_latest.sif vep --input_file $INPUTVCF \
 --output_file $OUTPUTVCF \
