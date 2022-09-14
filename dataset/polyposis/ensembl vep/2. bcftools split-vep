@@ -1,0 +1,26 @@
+#!/bin/bash --login
+#SBATCH -J AmyHouseman_bcftoolssplitvep
+#SBATCH -o %x.stdout.%J.%N
+#SBATCH -e %x.stderr.%J.%N
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
+#SBATCH -p htc
+#SBATCH --account=scw1581
+#SBATCH --mail-type=ALL          # Mail events (NONE, BEGIN, END, FAIL, ALL)
+#SBATCH --mail-user=HousemanA@cardiff.ac.uk     # Where to send mail
+#SBATCH --array=1-136
+#SBATCH --qos=maxjobs500
+
+module purge
+module load bcftools/1.10.2
+
+# Set bash error trapping to exit on first error.
+set -eu
+
+TOOL=bcftools
+EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/alldataset_bestcov_IDS
+INPUTVCF=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/ensemblvep-output/gunzipped/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP.vcf
+OUTPUTVCF={}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP_bcftoolssplitvcf.vcf
+
+cd /scratch/c.c21087028/
+sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "$TOOL +split-vep $INPUTVCF -f '%ID\t%CHROM\t%POS\t%REF\t%ALT\t%CSQ\n' -d  -A tab  > $OUTPUTVCF`
