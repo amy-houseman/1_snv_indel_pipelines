@@ -12,7 +12,8 @@
 #SBATCH --qos=maxjobs500
 
 module purge
-module load bcftools/1.10.2
+module load bcftools/1.16.0
+module load parallel
 
 # Set bash error trapping to exit on first error.
 set -eu
@@ -20,8 +21,7 @@ set -eu
 TOOL=bcftools
 EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/alldataset_bestcov_IDS
 INPUTVCF=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/ensemblvep-output/gunzipped/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP.vcf
-OUTPUTVCF={}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP_bcftoolssplitvcf.vcf
+OUTPUTVCF=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/output/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP_bcftoolssplitvcf.vcf
 
 cd /scratch/c.c21087028/
-sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "$TOOL +split-vep $INPUTVCF -f '\t%CHROM\t%ID\t%POS\t%REF\t%ALT\t%CSQ[\t%GT][\t%GQ][\t%DP][\t%MIN_DP][\t%AD][\t%VAF][\t%PL][\t%MED_DP]\n' -d  -A tab  > $OUTPUTVCF
-
+sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "$TOOL +split-vep $INPUTVCF -f '\t%CHROM\t%ID\t%POS\t%REF\t%ALT\t%CSQ[\t%GT][\t%GQ][\t%DP][\t%MIN_DP][\t%AD][\t%VAF][\t%PL][\t%MED_DP]\n' -d  -A tab  > $OUTPUTVCF"
