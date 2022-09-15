@@ -22,6 +22,9 @@ TOOL=bcftools
 EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/alldataset_bestcov_IDS
 INPUTVCF=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/ensemblvep-output/gunzipped/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP.vcf
 OUTPUTVCF=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/output/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP_bcftoolssplitvcf.vcf
+HEADERFILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/output/ensembl-vep-headers.txt
+SAMPLENAMEHEADER=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/output/samplenameheader/{}ensembl-vep-headers.txt
+BCFTOOLSANDHEADER=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/output/withheader/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP_bcftoolssplitvcf_withheader.vcf
 
 cd /scratch/c.c21087028/
-sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "$TOOL +split-vep $INPUTVCF -f '\t%CHROM\t%ID\t%POS\t%REF\t%ALT\t%CSQ[\t%GT][\t%GQ][\t%DP][\t%MIN_DP][\t%AD][\t%VAF][\t%PL][\t%MED_DP]\n' -d  -A tab  > $OUTPUTVCF"
+sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "$TOOL +split-vep $INPUTVCF -f '\t%CHROM\t%ID\t%POS\t%REF\t%ALT\t%CSQ[\t%GT][\t%GQ][\t%DP][\t%MIN_DP][\t%AD][\t%VAF][\t%PL][\t%MED_DP]\n' -d  -A tab  > $OUTPUTVCF | cp $HEADERFILE $SAMPLENAMEHEADER | cat $OUTPUTVCF >> $SAMPLENAMEHEADER | mv $SAMPLENAMEHEADER $BCFTOOLSANDHEADER"
