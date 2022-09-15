@@ -23,6 +23,5 @@ INPUTVCF=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVER
 OUTPUTVCF={}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP_bcftoolssplitvcf.vcf
 
 cd /scratch/c.c21087028/
-sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "$TOOL +split-vep $INPUTVCF -f '\%CHROM\t%ID\t%POS\t%REF\t%ALT\t%CSQ\n' -d  -A tab  > $OUTPUTVCF`
-
+sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "$TOOL +split-vep $INPUTVCF -f '\t%CHROM\t%ID\t%POS\t%REF\t%ALT\t%CSQ[\t%GT][\t%GQ][\t%DP][\t%MIN_DP][\t%AD][\t%VAF][\t%PL][\t%MED_DP]\n' -d  -A tab  > $OUTPUTVCF
 
