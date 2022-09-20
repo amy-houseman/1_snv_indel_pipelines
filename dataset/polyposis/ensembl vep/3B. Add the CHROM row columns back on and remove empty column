@@ -24,7 +24,8 @@ BCFTOOLSINPUTVCF=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_B
 BCFTOOLSOUTPUTVCF=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/output/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP_bcftoolssplitvcf.vcf
 HEADERFILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/input/chrom-vep-header.txt
 SAMPLENAMEHEADER=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/output/samplenameheader/{}ensembl-vep-headers.txt
-BCFTOOLSANDHEADER=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/output/ensemblvep-bcftoolssplit-withheader-vcfs/withchromheader/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP_bcftoolssplitvcf_withheader.vcf
+BCFTOOLSANDHEADER=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/output/ensemblvep-bcftoolssplit-withheader-vcfs/withchromheader/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP_bcftoolssplitvcf_withchromheader.vcf
+NOFIRSTCOLUMN=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/output/ensemblvep-bcftoolssplit-withheader-vcfs/withchromheader/nofirstcolumn/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP_bcftoolssplitvcf_withchromheader.vcf
 
 cd /scratch/c.c21087028/
-sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "cp $HEADERFILE $SAMPLENAMEHEADER && cat $BCFTOOLSOUTPUTVCF >> $SAMPLENAMEHEADER && mv $SAMPLENAMEHEADER $BCFTOOLSANDHEADER"
+sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "cp $HEADERFILE $SAMPLENAMEHEADER && cat $BCFTOOLSOUTPUTVCF >> $SAMPLENAMEHEADER && mv $SAMPLENAMEHEADER $BCFTOOLSANDHEADER && cut -f2- $BCFTOOLSANDHEADER > $NOFIRSTCOLUMN"
