@@ -24,4 +24,4 @@ POLYPOSISGENELIST=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_
 POLYPOSISGENESEXTRACTED=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/output/extractedpolyposisgenes/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP_bcftoolssplitvcf_withchromheader_nofirstcolumn_extractedpolyposisgenes.vcf
 
 cd /scratch/c.c21087028/
-sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "grep -wf $POLYPOSISGENELIST $NOFIRSTCOLUMN >> $POLYPOSISGENESEXTRACTED
+sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "grep -wf $POLYPOSISGENELIST $NOFIRSTCOLUMN >> $POLYPOSISGENESEXTRACTED"
