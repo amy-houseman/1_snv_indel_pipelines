@@ -26,5 +26,5 @@ cd /scratch/c.c21087028/
 ### "awk '\$2=\$3' $ORIGINAL_ID_TO_POSITION_FILE >> $OUTPUT_ID_TO_POSITION_FILE = copy the third column into the second column
 ### "awk '\$2=\$3' $ORIGINAL_ID_TO_POSITION_FILE >> $OUTPUT_ID_TO_POSITION_FILE && awk '{\$2="$EXOMEID"\$2}1' $OUTPUT_ID_TO_POSITION_FILE > $EXOMEIDADDED_OUTPUT" = add the sample ID {} onto all of the entries for the second column
 
-sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "awk '\$2=\$3' $ORIGINAL_ID_TO_POSITION_FILE >> $OUTPUT_ID_TO_POSITION_FILE && awk '{\$2="$EXOMEID"\$2}1' $OUTPUT_ID_TO_POSITION_FILE > $EXOMEIDADDED_OUTPUT"
+sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "awk '\$2=\$3' $ORIGINAL_ID_TO_POSITION_FILE >> $OUTPUT_ID_TO_POSITION_FILE && awk '{\$2="$EXOMEID"\$2}1' $OUTPUT_ID_TO_POSITION_FILE >> $EXOMEIDADDED_OUTPUT"
 
