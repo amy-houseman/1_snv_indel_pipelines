@@ -18,9 +18,9 @@ module load parallel
 set -eu
 
 EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/input/alldataset_bestcov_IDS
-ORIGINAL_EXTRACTED=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/Test_extract/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP_bcftoolssplitvcf_withchromheader_nofirstcolumn_AMYsextractedpolyposisgenes.vcf
+FILE_TO_BE_EXTRACTED_FROM=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/Test_extract/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP_bcftoolssplitvcf_withchromheader_nofirstcolumn_AMYsextractedpolyposisgenes.vcf
 POLYPOSISGENELIST=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/Test_extract/input/APC.txt
-SPECIFICGENESEXTRACTED=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/Test_extract/output/3__APC_Amys_specific_genes_for_fromallfiles.txt
+SPECIFIC_GENES_EXTRACTED_FROMALLSAMPLES_INTO_ONEFILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/Test_extract/output/3__APC_Amys_specific_genes_for_fromallfiles.txt
 
 cd /scratch/c.c21087028/
-sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "grep -wf $POLYPOSISGENELIST $ORIGINAL_EXTRACTED >> $SPECIFICGENESEXTRACTED"
+sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "grep -wf $POLYPOSISGENELIST $FILE_TO_BE_EXTRACTED_FROM >> $SPECIFIC_GENES_EXTRACTED_FROMALLSAMPLES_INTO_ONEFILE"
