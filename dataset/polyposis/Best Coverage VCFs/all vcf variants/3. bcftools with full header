@@ -1,0 +1,30 @@
+#!/bin/bash --login
+#SBATCH -J AmyHouseman_bcftoolssplitvep
+#SBATCH -o %x.stdout.%J.%N
+#SBATCH -e %x.stderr.%J.%N
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
+#SBATCH -p htc
+#SBATCH --account=scw1581
+#SBATCH --mail-type=ALL          # Mail events (NONE, BEGIN, END, FAIL, ALL)
+#SBATCH --mail-user=HousemanA@cardiff.ac.uk     # Where to send mail
+#SBATCH --array=1-136
+#SBATCH --qos=maxjobs500
+
+module purge
+module load bcftools/1.16.0
+module load parallel
+
+# Set bash error trapping to exit on first error.
+set -eu
+
+TOOL=bcftools
+EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/input/alldataset_bestcov_IDS
+BCFTOOLSINPUTVCF=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/3B.ensemblvep_allvariants/3B.allvariants_ensembl_vep_annotation/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_allvariants_annotatedVEP.vcf
+BCFTOOLSOUTPUTVCF=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/4.bcftools_original_allvariants_output_no_headers/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP_bcftoolssplitvcf_allvariants.vcf
+HEADERFILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/input/ensembl-vep-headers.txt
+SAMPLENAMEHEADER=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/output/samplenameheader/{}ensembl-vep-headers.txt
+BCFTOOLSANDHEADER=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/5B.bcftools_with_original_and_vepheaders_allvariants/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP_bcftoolssplitvcf_withfullheader_allvariants.vcf
+
+cd /scratch/c.c21087028/
+sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "$TOOL +split-vep $BCFTOOLSINPUTVCF -f '\t%CHROM\t%ID\t%POS\t%REF\t%ALT\t%CSQ[\t%GT][\t%GQ][\t%DP][\t%MIN_DP][\t%AD][\t%VAF][\t%PL][\t%MED_DP]\n' -d  -A tab  > $BCFTOOLSOUTPUTVCF | cp $HEADERFILE $SAMPLENAMEHEADER && cat $BCFTOOLSOUTPUTVCF >> $SAMPLENAMEHEADER && mv $SAMPLENAMEHEADER $BCFTOOLSANDHEADER"
