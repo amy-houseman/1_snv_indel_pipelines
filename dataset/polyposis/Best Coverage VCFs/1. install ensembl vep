@@ -1,0 +1,8 @@
+cd /home/c.c21087028
+
+module load singularity
+singularity pull docker://ensemblorg/ensembl-vep
+singularity shell ensembl-vep_latest.sif
+
+cd /opt/vep/src/ensembl-vep
+perl INSTALL.pl -a cfp -s homo_sapiens -y GRCh38 -g all
