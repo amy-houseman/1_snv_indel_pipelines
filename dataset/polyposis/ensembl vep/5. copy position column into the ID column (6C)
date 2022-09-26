@@ -1,0 +1,27 @@
+#!/bin/bash --login
+#SBATCH -J AmyHouseman_extractgenes
+#SBATCH -o %x.stdout.%J.%N
+#SBATCH -e %x.stderr.%J.%N
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
+#SBATCH -p htc
+#SBATCH --account=scw1581
+#SBATCH --mail-type=ALL          # Mail events (NONE, BEGIN, END, FAIL, ALL)
+#SBATCH --mail-user=HousemanA@cardiff.ac.uk     # Where to send mail
+#SBATCH --array=1-136
+#SBATCH --qos=maxjobs500
+
+module load parallel
+EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/input/alldataset_bestcov_IDS
+ORIGINAL_ID_TO_POSITION_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP_bcftoolssplitvcf_withchromheader_nofirstcolumn_AMYsextractedpolyposisgenes.vcf
+OUTPUT_ID_TO_POSITION_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/6B.annotated_and_split_with_samplepositionID_onerowheaders/output_IDcolumn_into_positioncolumn/{}output_IDcolumn_into_position.vcf
+EXOMEIDADDED_OUTPUT=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/6B.annotated_and_split_with_samplepositionID_onerowheaders/6C.annotated_and_split_with_onerowheaders_and_samplepositionID/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP_bcftoolssplitvcf_withchromheader_firstcolpresent_samplepositionIDs_6C.vcf
+EXOMEID={}
+
+# Set bash error trapping to exit on first error.
+set -eu
+
+cd /scratch/c.c21087028/
+
+sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "awk -v OFS='\t' '\$3=\$4' $ORIGINAL_ID_TO_POSITION_FILE > $OUTPUT_ID_TO_POSITION_FILE && awk -v OFS='\t' '{\$3=\"$EXOMEID\"\$3}1' $OUTPUT_ID_TO_POSITION_FILE > $EXOMEIDADDED_OUTPUT"
+
