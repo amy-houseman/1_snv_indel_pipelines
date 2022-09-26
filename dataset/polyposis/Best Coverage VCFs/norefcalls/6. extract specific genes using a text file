@@ -1,0 +1,27 @@
+#!/bin/bash --login
+#SBATCH -J AmyHouseman_extractgenes
+#SBATCH -o %x.stdout.%J.%N
+#SBATCH -e %x.stderr.%J.%N
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
+#SBATCH -p htc
+#SBATCH --account=scw1581
+#SBATCH --mail-type=ALL          # Mail events (NONE, BEGIN, END, FAIL, ALL)
+#SBATCH --mail-user=HousemanA@cardiff.ac.uk     # Where to send mail
+#SBATCH --array=1-136
+#SBATCH --qos=maxjobs500
+
+module purge
+module load parallel
+
+# Set bash error trapping to exit on first error.
+set -eu
+
+TOOL=bcftools
+EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/input/alldataset_bestcov_IDS
+NOFIRSTCOLUMN=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/output/ensemblvep-bcftoolssplit-withheader-vcfs/withchromheader/nofirstcolumn/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP_bcftoolssplitvcf_withchromheader_nofirstcolumn.vcf
+POLYPOSISGENELIST=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/input/Hannahs_CR_polyposis_candidate_genes.txt
+POLYPOSISGENESEXTRACTED=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/Hannahs_candidates_extracted/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP_bcftoolssplitvcf_withchromheader_nofirstcolumn_HANNAHSextractedpolyposisgenes.vcf
+
+cd /scratch/c.c21087028/
+sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "grep -wf $POLYPOSISGENELIST $NOFIRSTCOLUMN >> $POLYPOSISGENESEXTRACTED"
