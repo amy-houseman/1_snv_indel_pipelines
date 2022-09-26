@@ -1,5 +1,5 @@
 #!/bin/bash --login
-#SBATCH -J AmyHouseman_extractspecificgenesfromallfiles
+#SBATCH -J AmyHouseman_combinefiles
 #SBATCH -o %x.stdout.%J.%N
 #SBATCH -e %x.stderr.%J.%N
 #SBATCH --ntasks=1
@@ -8,7 +8,6 @@
 #SBATCH --account=scw1581
 #SBATCH --mail-type=ALL          # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=HousemanA@cardiff.ac.uk     # Where to send mail
-#SBATCH --array=1-2
 #SBATCH --qos=maxjobs500
 
 module purge
@@ -17,10 +16,11 @@ module load parallel
 # Set bash error trapping to exit on first error.
 set -eu
 
-EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/input/alldataset_bestcov_IDS
-FILE_TO_BE_EXTRACTED_FROM=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/combining_noref_gene/9.extracting_genes/1.Amys_polyposis_list/1.individual_samples/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcalls_annotatedVEP_bcftoolssplitvcf_withchromheader_nofirstcol_samplepositionIDs_8B.vcf
-POLYPOSISGENELIST=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/combining_noref_gene/9.extracting_genes/1.Amys_polyposis_list/3.textfile_gene_list/APC_genelist.txt
-SPECIFIC_GENES_EXTRACTED_FROMALLSAMPLES_INTO_ONEFILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/combining_noref_gene/9.extracting_genes/1.Amys_polyposis_list/2.combined_samples/APC_combinedvariantsallsamples.vcf
+EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/input/alldataset_bestcov_IDS_removedE036_H_001
+FILE_TO_BE_EXTRACTED_FROM=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/NOREFCALL/9.extracting_genes/1.Amys_polyposis_list/1.individual_samples/APC/*
+
+COMBINEINTOONEFILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/NOREFCALL/9.extracting_genes/1.Amys_polyposis_list/2.combined_samples/APC_combinedsamples_removed_E036_H_001.vcf
 
 cd /scratch/c.c21087028/
-sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "grep -wf $POLYPOSISGENELIST $FILE_TO_BE_EXTRACTED_FROM >> $SPECIFIC_GENES_EXTRACTED_FROMALLSAMPLES_INTO_ONEFILE"
+
+cat $FILE_TO_BE_EXTRACTED_FROM >> $COMBINEINTOONEFILE
