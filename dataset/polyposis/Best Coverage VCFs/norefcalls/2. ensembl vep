@@ -1,0 +1,38 @@
+#!/bin/bash --login
+#SBATCH -J AmyHouseman_vep
+#SBATCH -o %x.stdout.%J.%N
+#SBATCH -e %x.stderr.%J.%N
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
+#SBATCH -p htc
+#SBATCH --account=scw1581
+#SBATCH --mail-type=ALL          # Mail events (NONE, BEGIN, END, FAIL, ALL)
+#SBATCH --mail-user=HousemanA@cardiff.ac.uk     # Where to send mail
+#SBATCH --array=1-136
+#SBATCH --mem-per-cpu=64GB
+#SBATCH --qos=maxjobs500
+
+INPUTVCF=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/ensemblvep-input/norefcallvcfs/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcall.vcf
+OUTPUTVCF=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/ensemblvep-output/{}PE_output_GCA_000001405.15_GRCh38_no_alt_analysis_set_norefcall_annotatedVEP.vcf.gz
+HG38REFERENCE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/hg38reference/bwa/index/GCA_000001405.15_GRCh38_no_alt_analysis_set_refandindex/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna
+EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/ensemblvep-input/alldataset_bestcov_IDS
+
+module load singularity
+module load parallel
+
+sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "singularity exec /scratch/c.c21087028/ensembl-vep_latest.sif vep --input_file $INPUTVCF \
+--output_file $OUTPUTVCF \
+--format vcf \
+--vcf \
+--compress_output bgzip \
+--species homo_sapiens \
+--assembly GRCh38 \
+--fasta $HG38REFERENCE \
+--offline \
+--cache \
+--dir_cache /home/c.c21087028/.vep/ \
+--cache_version 107 \
+--force \
+--no_stats \
+--everything \
+--plugin CADD,/scratch/c.c21087028/ENSEMBL-VEP-PLUGGINS/ENSEMBL-CADD/whole_genome_GRCh38_SNVs.tsv.gz,/scratch/c.c21087028/ENSEMBL-VEP-PLUGGINS/ENSEMBL-CADD/gnomad.genomes.r3.0.indel.tsv.gz"
