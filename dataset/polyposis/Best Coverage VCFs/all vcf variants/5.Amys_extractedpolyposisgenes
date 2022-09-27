@@ -1,0 +1,26 @@
+#!/bin/bash --login
+#SBATCH -J AmyHouseman_AMYextractgenes
+#SBATCH -o %x.stdout.%J.%N
+#SBATCH -e %x.stderr.%J.%N
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
+#SBATCH -p htc
+#SBATCH --account=scw1581
+#SBATCH --mail-type=ALL          # Mail events (NONE, BEGIN, END, FAIL, ALL)
+#SBATCH --mail-user=HousemanA@cardiff.ac.uk     # Where to send mail
+#SBATCH --array=1-135
+#SBATCH --qos=maxjobs500
+
+module purge
+module load parallel
+
+# Set bash error trapping to exit on first error.
+set -eu
+
+EXOME_IDs_FILE=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/bcftools/input/alldataset_bestcov_IDS_removedE036_H_001
+SAMPLEID_POS_FILE_TO_EXTRACTFROM=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/ALLVARIANTS/7.sampleID_position/7.sampleID_position/{}allvariants_sampleID_position_added.vcf
+POLYPOSISGENELIST=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/ALLVARIANTS/8.extracting_genes/1.Amys_polyposis_list/3.textfile_gene_list/Amys_listofpolyposisgenes.txt
+POLYPOSISGENESEXTRACTED=/scratch/c.c21087028/Polyposis_Exome_Analysis_ALLDATASET_VCFs_BESTCOVERAGE/ALLVARIANTS/8.extracting_genes/1.Amys_polyposis_list/1.individual_samples/{}AMYs_allvariants_extracted_polyposis_genes.vcf
+
+cd /scratch/c.c21087028/
+sed -n "${SLURM_ARRAY_TASK_ID}p" $EXOME_IDs_FILE | parallel -j 1 "grep -wf $POLYPOSISGENELIST $SAMPLEID_POS_FILE_TO_EXTRACTFROM >> $POLYPOSISGENESEXTRACTED"
